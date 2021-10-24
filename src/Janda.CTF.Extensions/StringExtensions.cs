@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -15,12 +14,17 @@ namespace Janda.CTF
             return value;
         }
 
+        
+        public static string[] Lines(this string value, string lineBreak = "\n", bool removeEmptyLines = false)
+        {
+            return value.Split(lineBreak, removeEmptyLines ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None);
+        }
+
         public static string Decrypt(this string value, string key, PaddingMode padding = PaddingMode.None)
         {
             var input = Convert.FromBase64String(value);
             var output = input.Decrypt(key, padding);
             return Encoding.UTF8.GetString(output);
         }
-
     }
 }
